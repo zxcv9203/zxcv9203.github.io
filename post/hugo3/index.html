@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://zxcv9203.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/syntax.css' />
+    <title>Hugo &#43; github 블로그 만들기 - 3 - zxcv9203&#39;s blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="Github 블로그 만들기와 Hugo를 이용한 정적 웹페이지 생성" />
+<meta name="keywords"
+  content='blog, google analytics' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://zxcv9203.github.io/post/hugo3/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Hugo &#43; github 블로그 만들기 - 3 - zxcv9203&#39;s blog" />
+<meta name="twitter:description"
+  content="Github 블로그 만들기와 Hugo를 이용한 정적 웹페이지 생성" />
+<meta name="twitter:site" content="https://zxcv9203.github.io" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://zxcv9203.github.io">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Hugo &#43; github 블로그 만들기 - 3 - zxcv9203&#39;s blog">
+<meta property="og:description"
+  content="Github 블로그 만들기와 Hugo를 이용한 정적 웹페이지 생성" />
+<meta property="og:url" content="https://zxcv9203.github.io/post/hugo3/" />
+<meta property="og:site_name" content="Hugo &#43; github 블로그 만들기 - 3" />
+<meta property="og:image"
+  content="https://zxcv9203.github.io">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2021-11-17 13:34:24 &#43;0900 KST" />
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://zxcv9203.github.io">
+        <svg class="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd"
+            d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://zxcv9203.github.io">
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://zxcv9203.github.io">
+        <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+          width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+  
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://zxcv9203.github.io">
+                  <img class=" avatar-user"
+                    src="/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://zxcv9203.github.io">yongckim</a></span><span
+                    class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
+                      href="https://zxcv9203.github.io/post/hugo3/">Hugo &#43; github 블로그 만들기 - 3</a></strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Wed, 17 Nov 2021 13:34:24 &#43;0900"
+                    class="no-wrap">
+                    Wed, 17 Nov 2021 13:34:24 &#43;0900</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Sat, 20 Nov 2021 20:52:04 &#43;0900"
+                    class="no-wrap">
+                    Sat, 20 Nov 2021 20:52:04 &#43;0900</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="menu" aria-label="Table of Contents" role="button">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                          932 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5">
+                <article class="markdown-body entry-content container-lg"><h1 id="github-블로그-생성">Github 블로그 생성</h1>
+<p>먼저 Github 블로그 생성을 위해 repository 먼저 생성해봅시다.</p>
+<ol>
+<li>
+<p><a href="https://github.com">https://github.com</a> 에 접속하여 로그인합니다. (깃허브 계정이 없다면 다음 빨간 박스를 선택한 후 가입해야 합니다.)</p>
+<p><img src="/images/hugo3-1.png" alt="github_main"></p>
+</li>
+<li>
+<p>깃허브 블로그로 사용할 레포지터리를 생성합니다.</p>
+<p><img src="/images/hugo3-2.png" alt="github_repo_create"></p>
+</li>
+<li>
+<p>레포지터리 이름을 다음과 같은 형태로 만듭니다. <code>&lt;github id&gt;.github.io</code></p>
+<p><img src="/images/hugo3-3.png" alt="github_page_create"></p>
+</li>
+</ol>
+<h1 id="hugo를-이용한-정적-사이트-생성하기">Hugo를 이용한 정적 사이트 생성하기</h1>
+<p>웹 개발에 대한 지식이 없기때문에 정적 사이트 생성기를 통해 깃허브 블로그를 사용하기로 했고 이번에는 Hugo(이하 휴고)를 사용해서 블로그를 만들려고한다.</p>
+<p>먼저 휴고를 사용하기 위해서 휴고를 설치해야하는데 brew를 사용하면 간단하게 설치할 수 있습니다.</p>
+<p>저의 경우 WSL2를 이용해 우분투를 사용해서 linux homebrew를 설치하여 해결하였습니다.</p>
+<p>먼저 linux homebrew 먼저 설치해봅시다. (Mac 사용자라면 Hugo 설치부터 시작하시면 됩니다.)</p>
+<h2 id="linux-homebrew-설치">linux homebrew 설치</h2>
+<ol>
+<li>설치하기 전에 설치에 사용되는 패키지들을 터미널에 다음 명령을 입력해서 다운받습니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install build-essential procps curl file git		
+</code></pre></div><ol start="2">
+<li>linux homebrew repository를 클론합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
+</code></pre></div><ol start="3">
+<li>brew 명령을 사용하기 위해 bin 폴더를 만들고 다음 경로에 brew 명령의 심볼릭 링크를 생성합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir ~/.linuxbrew/bin
+ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+</code></pre></div><ol start="4">
+<li>PATH 설정을 유지하기 위해서 다음 명령을 통해서 <code>.zshrc</code>에 저장합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#39;eval $(~/.linuxbrew/bin/brew shellenv)&#39;</span> &gt;&gt; ~/.zshrc
+</code></pre></div><h2 id="hugo-설치">Hugo 설치</h2>
+<ol>
+<li>brew 명령어를 이용하여 hugo를 설치합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install hugo
+</code></pre></div><ol start="2">
+<li>hugo를 이용해서 블로그를 만들기 위해 다음 명령을 입력합니다. (project name은 사용할 프로젝트의 이름을 입력하면 됩니다.)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#ex :  hugo new site &lt;project name&gt;</span>
+hugo new site blog
+</code></pre></div><ol start="3">
+<li>
+<p><a href="https://themes.gohugo.io/">https://themes.gohugo.io/</a> 에서 원하는 테마를 고릅니다.</p>
+</li>
+<li>
+<p>원하는 테마를 서브모듈로 추가합니다.</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># cd &lt;project name&gt;</span>
+cd blog
+<span style="color:#75715e"># git submodule add https://github.com/&lt;themeGithubId&gt;/&lt;themeGitRepo&gt; themes/&lt;yourWantThemeDirectory&gt;</span>
+git submodule add https://github.com/MeiK2333/github-style.git theme/github-style
+</code></pre></div><ol start="5">
+<li>원하는 테마를 선택하면 원하는 테마에서 요구하는 데로 config.toml 파일을 작성합니다. (저의 경우는 github-style 테마를 사용했습니다.)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">touch config.toml
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;https://zxcv9203.github.io&#34;</span> <span style="color:#75715e"># 블로그 경로</span>
+<span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#34;ko-kr&#34;</span> <span style="color:#75715e"># 사용 언어</span>
+<span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;zxcv9203&#39;s blog&#34;</span> <span style="color:#75715e"># 웹 페이지 타이틀</span>
+<span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;github-style&#34;</span> <span style="color:#75715e"># 테마</span>
+<span style="color:#75715e">#googleAnalytics = &#34;UA-123456-789&#34;</span>
+<span style="color:#75715e">#pygmentsCodeFences = true</span>
+<span style="color:#75715e">#pygmentsUseClasses = true</span>
+
+[<span style="color:#a6e22e">params</span>]
+  <span style="color:#a6e22e">author</span> = <span style="color:#e6db74">&#34;yongckim&#34;</span> <span style="color:#75715e"># 이름</span>
+  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;42 cadet&#34;</span> <span style="color:#75715e"># 자기 소개</span>
+  <span style="color:#a6e22e">github</span> = <span style="color:#e6db74">&#34;zxcv9203&#34;</span> <span style="color:#75715e"># github 계정명</span>
+<span style="color:#75715e">#  linkedin = &#34;yongckim&#34; # linked in 계정명</span>
+  <span style="color:#a6e22e">email</span> = <span style="color:#e6db74">&#34;yongckim@student.42seoul.kr&#34;</span> <span style="color:#75715e">#이메일</span>
+  <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;https://zxcv9203.github.io&#34;</span> <span style="color:#75715e"># 사이트 주소</span>
+  <span style="color:#a6e22e">keywords</span> = <span style="color:#e6db74">&#34;blog, google analytics&#34;</span> 
+<span style="color:#75715e">#  rss = true</span>
+  <span style="color:#a6e22e">lastmod</span> = <span style="color:#66d9ef">true</span>
+  <span style="color:#a6e22e">userStatusEmoji</span> = <span style="color:#e6db74">&#34;😀&#34;</span> <span style="color:#75715e"># 프로필사진 옆 이모지</span>
+  <span style="color:#a6e22e">favicon</span> = <span style="color:#e6db74">&#34;/images/github.png&#34;</span> <span style="color:#75715e"># 파비콘설정</span>
+  <span style="color:#a6e22e">avatar</span> = <span style="color:#e6db74">&#34;/images/avatar.png&#34;</span> <span style="color:#75715e"># 프로필 사진 설정</span>
+  <span style="color:#a6e22e">location</span> = <span style="color:#e6db74">&#34;Korea&#34;</span> <span style="color:#75715e"># 현재 위치 설정</span>
+
+  [[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">links</span>]]
+    <span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;algorithm&#34;</span> <span style="color:#75715e"># organization link</span>
+    <span style="color:#a6e22e">href</span> = <span style="color:#e6db74">&#34;https://www.acmicpc.net/user/zxcv9203&#34;</span>
+		<span style="color:#a6e22e">icon</span> = <span style="color:#e6db74">&#34;https://zxcv9203.github.io/images/boj.png&#34;</span>
+<span style="color:#75715e">#  [[params.links]]  하단 아이콘 링크 추가</span>
+<span style="color:#75715e">#    title = &#34;Link2&#34;</span>
+<span style="color:#75715e">#    href = &#34;https://yongckim.github.io/&#34;</span>
+<span style="color:#75715e">#   	icon = &#34;https://zxcv9203.github.io/images/avatar.png&#34;</span>
+
+[<span style="color:#a6e22e">frontmatter</span>]
+  <span style="color:#a6e22e">lastmod</span> = [<span style="color:#e6db74">&#34;lastmod&#34;</span>, <span style="color:#e6db74">&#34;:fileModTime&#34;</span>, <span style="color:#e6db74">&#34;:default&#34;</span>]
+</code></pre></div><ol start="6">
+<li>테마가 잘 적용되었는지 확인하기 위해 다음 명령을 사용한 후 http://localhost:1313 으로 접속합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># hugo server -t &lt;theme name&gt;</span>
+hugo server -t github-style
+</code></pre></div><ol start="7">
+<li>테마가 잘 적용된 것을 확인할 수 있습니다.</li>
+</ol>
+</article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+ 
+ 
+ 
+ window.onload = function () {
+   const header = document.getElementById('post-header');
+   const headerHeight = header.offsetHeight;
+   
+   document.documentElement.style.scrollPaddingTop = headerHeight + 10 + "px";
+ }
+
+ const tocToggleButton = document.getElementById("toc-toggle");
+
+ const tippyInstance = tippy('#toc-toggle', {
+  trigger: 'click',
+  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\n  \u003cul\u003e\n    \u003cli\u003e\u003ca href=\u0022#linux-homebrew-설치\u0022\u003elinux homebrew 설치\u003c\/a\u003e\u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#hugo-설치\u0022\u003eHugo 설치\u003c\/a\u003e\u003c\/li\u003e\n  \u003c\/ul\u003e\n\u003c\/nav\u003e</div>',
+  allowHTML: true,
+  placement: 'bottom-start',
+  interactive: true,
+  arrow: false,
+  maxWidth: "none",
+  onHide: function () { tocToggleButton.classList.remove("hover"); },
+  onShow: function () { tocToggleButton.classList.add("hover"); },
+  onShown: function () {
+    selectTableOfContentsOption();
+
+    if (window.hasSetupTableOfContentsListeners) {
+      return;
+    }
+
+    const tableOfContents = document.getElementById("table-of-contents");
+    tableOfContents.addEventListener('click', function () {
+      
+      tippyInstance[0].hide();
+    });
+
+    window.hasSetupTableOfContentsListeners = true;
+  }
+ });
+
+ function selectTableOfContentsOption () {
+   const optionSelectedClass = 'table-of-contents-option-selected';
+
+   const tableOfContentsOptions = document.querySelectorAll("#table-of-contents > nav > ul li");
+
+   for (const option of tableOfContentsOptions) {
+     
+
+     const [child] = option.children;
+     if (child.tagName.toLowerCase() !== 'a') {
+       continue;
+     }
+
+     if (window.location.href === child.href) {
+       child.classList.add(optionSelectedClass);
+     } else {
+       child.classList.remove(optionSelectedClass);
+     }
+   }
+ }
+
+ window.onhashchange = selectTableOfContentsOption;
+</script>
+
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://zxcv9203.github.io">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://zxcv9203.github.io/js/github-style.js"></script>
+
+
+
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://zxcv9203.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/syntax.css' />
+    <title>Hugo &#43; github 블로그 만들기 - 4 - zxcv9203&#39;s blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="블로그 글 작성과 배포하기" />
+<meta name="keywords"
+  content='blog, google analytics' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://zxcv9203.github.io/post/hugo4/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Hugo &#43; github 블로그 만들기 - 4 - zxcv9203&#39;s blog" />
+<meta name="twitter:description"
+  content="블로그 글 작성과 배포하기" />
+<meta name="twitter:site" content="https://zxcv9203.github.io" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://zxcv9203.github.io">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Hugo &#43; github 블로그 만들기 - 4 - zxcv9203&#39;s blog">
+<meta property="og:description"
+  content="블로그 글 작성과 배포하기" />
+<meta property="og:url" content="https://zxcv9203.github.io/post/hugo4/" />
+<meta property="og:site_name" content="Hugo &#43; github 블로그 만들기 - 4" />
+<meta property="og:image"
+  content="https://zxcv9203.github.io">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2021-11-18 20:18:02 &#43;0900 KST" />
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://zxcv9203.github.io">
+        <svg class="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd"
+            d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://zxcv9203.github.io">
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://zxcv9203.github.io">
+        <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+          width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+  
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://zxcv9203.github.io">
+                  <img class=" avatar-user"
+                    src="/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://zxcv9203.github.io">yongckim</a></span><span
+                    class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
+                      href="https://zxcv9203.github.io/post/hugo4/">Hugo &#43; github 블로그 만들기 - 4</a></strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Thu, 18 Nov 2021 20:18:02 &#43;0900"
+                    class="no-wrap">
+                    Thu, 18 Nov 2021 20:18:02 &#43;0900</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Sat, 20 Nov 2021 20:52:04 &#43;0900"
+                    class="no-wrap">
+                    Sat, 20 Nov 2021 20:52:04 &#43;0900</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="menu" aria-label="Table of Contents" role="button">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                          1475 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5">
+                <article class="markdown-body entry-content container-lg"><h1 id="깃허브-블로그-배포해보기">깃허브 블로그 배포해보기</h1>
+<p>이전 챕터에서 테마를 적용을 완료했으니 이번에는 글을 한번 배포하도록 하겠습니다.</p>
+<p>먼저, hugo new site로 만든 디렉터리를 올리기 위해 깃허브 레포지터리를 추가로 생성합시다.</p>
+<ol>
+<li>
+<p><a href="https://github.com">https://github.com</a> 에 접속하여 깃허브 레포지터리를 생성합니다.</p>
+</li>
+<li>
+<p>해당 깃허브 레포지터리와 hugo new site로 만든 디렉터리와 다음과 같은 방법으로 연결합니다.</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># git remote add origin https://github.com/&lt;yourGithubId&gt;/&lt;yourGithubRepo&gt;</span>
+git remote add origin https://github.com/zxcv9203/zxcv9203.github.io.git
+</code></pre></div><ol start="3">
+<li>hugo를 이용하여 현재까지 작성한 내용을 정적 사이트로 변환하는 다음 명령을 입력합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># hugo -t &lt;theme&gt;</span>
+hugo -t github-style
+</code></pre></div><ol start="4">
+<li>3번을 완료하면 public 폴더가 생성될텐데 public 폴더에 git init 후 이전에 만들었던 <code>&lt;githubId&gt;.github.io</code>의 레포와 연결합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd public
+git init
+<span style="color:#75715e"># git remote add origin https://github.com/&lt;yourGithubId&gt;/&lt;yourGithubRepo&gt;</span>
+git remote add origin https://github.com/zxcv9203/zxcv9203.github.io.git
+</code></pre></div><ol start="5">
+<li>깃허브에 작성내용을 푸쉬하기 전에 정적 사이트로 변환한 public 디렉터리와 루트 디렉터리를 분리하기 위해 루트 디렉터리에 .gitignore 파일에</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd ..
+touch .gitignore
+</code></pre></div><pre tabindex="0"><code class="language-gitignore" data-lang="gitignore"># .gitignore file
+public/
+</code></pre><ol start="6">
+<li>이제 깃허브에 루트 디렉터리와 public 디렉터리의 내용을 푸쉬한다</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git add .
+git commit -m <span style="color:#e6db74">&#34;init&#34;</span> 
+git push origin master
+cd public
+git add .
+git commit -m <span style="color:#e6db74">&#34;init&#34;</span>
+git push origin master
+</code></pre></div><ol start="7">
+<li>블로그에 접속 후 일정 시간이 지나면 배포가되는 것을 확인할 수 있습니다.</li>
+</ol>
+<h1 id="블로그에-글-포스팅해보기">블로그에 글 포스팅해보기</h1>
+<p>이제 깃허브 블로그를 만들었으니 블로그에 글을 포스팅해봅시다.</p>
+<p>기본적으로 마크다운 문법을 사용하여 블로그글을 작성하게 됩니다.</p>
+<p>github-style 테마 기준으로 포스팅하는 법을 작성하겠습니다.</p>
+<h2 id="깃허브-테마-readme-만들기">깃허브 테마 Readme 만들기</h2>
+<p>깃허브 테마 같은 경우 깃허브 Readme.md를 만들면 실제 깃허브처럼 꾸밀 수 있기 때문에 Readme 먼저 작성해보겠습니다.</p>
+<ol>
+<li>다음 명령어로 readme.md를 생성합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo new readme.md
+</code></pre></div><ol start="2">
+<li>
+<p>content 디렉터리에 존재하는 readme.md를 원하는 대로 수정합니다.</p>
+</li>
+<li>
+<p>다음 명령어로 로컬에서 원하는데로 만들어 졌는지 확인합니다. (명령어 입력후 localhost:1313으로 접속)</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># hugo server -t &lt;theme&gt;</span>
+hugo server -t github-style
+</code></pre></div><ol start="4">
+<li>localhost:1313으로 접속해서 확인해보면 잘 나오는 것을 확인할 수 있습니다.</li>
+</ol>
+<h2 id="배포-자동화시키기">배포 자동화시키기</h2>
+<p>현재 같은 경우 루트 디렉터리를 저장하는 레포지터리와 실제 정적 페이지가 저장되어있는 public 디렉터리로 이루어진 레포지터리 두개가 존재하며 변경사항이 있을때마다 hugo 명령으로 계속 변환을 해주어야 합니다.</p>
+<p>이렇게 명령들을 여러차례 입력해야 하기 때문에 이 과정을 쉘 하나로 자동화시킬 수 있도록 만들어봅시다.</p>
+<ol>
+<li>deploy.sh 이라는 이름의 쉘 파일 하나를 만듭니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">touch deploy.sh
+</code></pre></div><ol start="2">
+<li>다음과 같이 작성합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+echo -e <span style="color:#e6db74">&#34;\033[0;32mDeploying updates to GitHub...\033[0m&#34;</span>
+
+<span style="color:#75715e"># Build the project.</span>
+<span style="color:#75715e"># hugo -t &lt;your theme&gt;</span>
+hugo -t github-style
+
+<span style="color:#75715e"># Go To Public folder, sub module commit</span>
+cd public
+<span style="color:#75715e"># Add changes to git.</span>
+git add .
+
+<span style="color:#75715e"># Commit changes.</span>
+msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rebuilding site `date`&#34;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $# -eq <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>
+  <span style="color:#66d9ef">then</span> msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+git commit -m <span style="color:#e6db74">&#34;</span>$msg<span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># Push source and build repos.</span>
+git push origin master
+
+<span style="color:#75715e"># Come Back up to the Project Root</span>
+cd ..
+
+
+<span style="color:#75715e"># blog 저장소 Commit &amp; Push</span>
+git add .
+
+msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rebuilding site `date`&#34;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $# -eq <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>
+  <span style="color:#66d9ef">then</span> msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+git commit -m <span style="color:#e6db74">&#34;</span>$msg<span style="color:#e6db74">&#34;</span>
+
+git push origin master
+</code></pre></div><ol start="3">
+<li>deploy.sh을 실행시키면 배포가 자동으로 이루어집니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">bash deploy.sh
+<span style="color:#75715e"># or</span>
+chmod deploy.sh <span style="color:#ae81ff">744</span> deploy.sh
+./deploy.sh
+</code></pre></div><h2 id="블로그-글-작성하기">블로그 글 작성하기</h2>
+<p>이제 배포 자동화도 했고 메인화면도 꾸몄으니 블로그글을 작성해봅시다.</p>
+<p>github-style 기준입니다.</p>
+<ol>
+<li>블로그 디렉터리의 루트에 있는 <code>posts</code> 폴더를 <code>post</code> 폴더로 이름을 변경합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mv posts post
+</code></pre></div><ol start="2">
+<li>hugo 명령을 통해 블로그에 포스팅할 페이지를 생성합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#hugo new post/&lt;파일이름.md&gt;</span>
+hugo new post/first.md
+</code></pre></div><ol start="3">
+<li><code>post/&lt;파일이름&gt;.md</code>를 열고 글을 작성합니다. github-style 테마의 경우 다음과 같이 draft의 값을 변경하고 summary를 추가해야합니다. (하지 않을 경우 글을 볼 수 없음)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">title: &#34;제목&#34;
+date: 2021-11-17T13:34:24+09:00
+draft: false
+summary: &#34;설명&#34;
+</code></pre></div><ol start="4">
+<li>작성을 완료하면 블로그에 올리기 전에 로컬에서 확인하기 위해 다음 명령을 사용합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#hugo server -t &lt;theme&gt;</span>
+hugo server -t github-style
+</code></pre></div><ol start="5">
+<li>localhost:1313에 들어가서 확인했을 때 문제가 없다면 이전에 만든 배포 쉘을 이용해 블로그 글을 배포하고 잠시 기다린 후 글이 올라왔는지 확인합니다.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">bash deploy.sh
+<span style="color:#75715e"># or</span>
+./deploy.sh
+</code></pre></div><ol start="6">
+<li>블로그 글이 잘 추가된 것을 볼 수 있습니다.</li>
+</ol>
+<h1 id="-깃허브-블로그-글을-배포-완료했습니다-">🎉 깃허브 블로그 글을 배포 완료했습니다 🎉</h1>
+<p>이제 깃허브 블로그를 사용하여 글을 작성하면 됩니다.</p>
+</article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+ 
+ 
+ 
+ window.onload = function () {
+   const header = document.getElementById('post-header');
+   const headerHeight = header.offsetHeight;
+   
+   document.documentElement.style.scrollPaddingTop = headerHeight + 10 + "px";
+ }
+
+ const tocToggleButton = document.getElementById("toc-toggle");
+
+ const tippyInstance = tippy('#toc-toggle', {
+  trigger: 'click',
+  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\n  \u003cul\u003e\n    \u003cli\u003e\u003ca href=\u0022#깃허브-테마-readme-만들기\u0022\u003e깃허브 테마 Readme 만들기\u003c\/a\u003e\u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#배포-자동화시키기\u0022\u003e배포 자동화시키기\u003c\/a\u003e\u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#블로그-글-작성하기\u0022\u003e블로그 글 작성하기\u003c\/a\u003e\u003c\/li\u003e\n  \u003c\/ul\u003e\n\u003c\/nav\u003e</div>',
+  allowHTML: true,
+  placement: 'bottom-start',
+  interactive: true,
+  arrow: false,
+  maxWidth: "none",
+  onHide: function () { tocToggleButton.classList.remove("hover"); },
+  onShow: function () { tocToggleButton.classList.add("hover"); },
+  onShown: function () {
+    selectTableOfContentsOption();
+
+    if (window.hasSetupTableOfContentsListeners) {
+      return;
+    }
+
+    const tableOfContents = document.getElementById("table-of-contents");
+    tableOfContents.addEventListener('click', function () {
+      
+      tippyInstance[0].hide();
+    });
+
+    window.hasSetupTableOfContentsListeners = true;
+  }
+ });
+
+ function selectTableOfContentsOption () {
+   const optionSelectedClass = 'table-of-contents-option-selected';
+
+   const tableOfContentsOptions = document.querySelectorAll("#table-of-contents > nav > ul li");
+
+   for (const option of tableOfContentsOptions) {
+     
+
+     const [child] = option.children;
+     if (child.tagName.toLowerCase() !== 'a') {
+       continue;
+     }
+
+     if (window.location.href === child.href) {
+       child.classList.add(optionSelectedClass);
+     } else {
+       child.classList.remove(optionSelectedClass);
+     }
+   }
+ }
+
+ window.onhashchange = selectTableOfContentsOption;
+</script>
+
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://zxcv9203.github.io">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://zxcv9203.github.io/js/github-style.js"></script>
+
+
+
+</html>
