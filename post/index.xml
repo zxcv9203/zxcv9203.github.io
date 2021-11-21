@@ -6,7 +6,16 @@
     <description>Recent content in Posts on zxcv9203&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 20 Nov 2021 20:37:52 +0900</lastBuildDate><atom:link href="https://zxcv9203.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Nov 2021 18:42:12 +0900</lastBuildDate><atom:link href="https://zxcv9203.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Algorithm] 2549 루빅의 사각형</title>
+      <link>https://zxcv9203.github.io/post/2549_py/</link>
+      <pubDate>Sun, 21 Nov 2021 18:42:12 +0900</pubDate>
+      
+      <guid>https://zxcv9203.github.io/post/2549_py/</guid>
+      <description>#Python #Backtracking #DFS</description>
+    </item>
+    
     <item>
       <title>[알고리즘] 16918 봄버맨 - python</title>
       <link>https://zxcv9203.github.io/post/16918_py/</link>
