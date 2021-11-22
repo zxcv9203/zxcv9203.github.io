@@ -6,7 +6,16 @@
     <description>Recent content in Posts on zxcv9203&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 22 Nov 2021 22:17:03 +0900</lastBuildDate><atom:link href="https://zxcv9203.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Nov 2021 00:15:05 +0900</lastBuildDate><atom:link href="https://zxcv9203.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[DataStructure]Linked List - 1</title>
+      <link>https://zxcv9203.github.io/post/linkedlist/</link>
+      <pubDate>Tue, 23 Nov 2021 00:15:05 +0900</pubDate>
+      
+      <guid>https://zxcv9203.github.io/post/linkedlist/</guid>
+      <description>Linked List란?</description>
+    </item>
+    
     <item>
       <title>[DataStructure]Array List - 3</title>
       <link>https://zxcv9203.github.io/post/arraylist2/</link>
