@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Sun, 21 Nov 2021 18:43:16 &#43;0900"
+                  Modified <relative-time datetime="Mon, 22 Nov 2021 20:54:38 &#43;0900"
                     class="no-wrap">
-                    Sun, 21 Nov 2021 18:43:16 &#43;0900</relative-time>
+                    Mon, 22 Nov 2021 20:54:38 &#43;0900</relative-time>
                   
                 </div>
               </div>
@@ -178,7 +178,7 @@
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          0 Words
+                          1192 Words
                     
 
                   </div>
@@ -190,7 +190,152 @@
 
 
               <div class="Box-body px-5 pb-5">
-                <article class="markdown-body entry-content container-lg"></article>
+                <article class="markdown-body entry-content container-lg"><p><a href="https://www.acmicpc.net/problem/2549">https://www.acmicpc.net/problem/2549</a></p>
+<p>11트만에 성공했다&hellip;</p>
+<p>문제는 백트래킹으로 풀었습니다.</p>
+<p>먼저, 루빅의 사각형에서 최악의 경우일때 8번을 회전하게 됩니다.</p>
+<p>하지만 해당 문제에서는 최대로 회전하는 값이 7번으로 제한되어 있기 때문에 최악의 경우는 7번이라고 생각하면 됩니다.</p>
+<p>다음과 같은 값이 있다고 가정해봅시다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">16 13 14 3
+4 1 2 7
+8 5 6 11
+12 9 10 15
+</code></pre></div><p>1행부터 4행까지 3번 회전하면 다음과 같은 값이 나옵니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">13 14 3 16
+1 2 7 4
+5 6 11 8
+9 10 15 12
+</code></pre></div><p>여기서 1열과 2열, 4열을 3번 회전하면 다음과 같이 원하는 값과 일치하게 됩니다.</p>
+<pre tabindex="0"><code>1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+</code></pre><blockquote>
+<p>문제풀이</p>
+</blockquote>
+<ol>
+<li>변수정의</li>
+</ol>
+<ul>
+<li>
+<p>lubic : 입력받은 1 ~ 16으로 이루어진 타일을 저장하는 변수</p>
+</li>
+<li>
+<p>ans : 바꾸려고 하는 형태의 타일</p>
+</li>
+<li>
+<p>ans_cnt : 원하는 형태로 바꾸기 위한 최소 값(8인 이유는 최악의 경우의 수인 7보다 큰 수를 만들기 위함)</p>
+</li>
+<li>
+<p>rotation : 회전한 방법을 담는 리스트 (정답)</p>
+</li>
+<li>
+<p>tmp_rotation : 회전한 방법들을 담는 리스트 (임시)</p>
+</li>
+<li>
+<p>diff : 정답과 다른 수의 숫자</p>
+</li>
+<li>
+<p>change : 최상의 경우일 때 움직여서 정답에 도달할 수 있는 값 (실제 가능한 값과 다를 수는 있음)</p>
+</li>
+<li>
+<p>prediction : 최소한으로 움직였을 때 정답에 도달할 수 있는 최소 값</p>
+</li>
+<li>
+<p>l, line : 행, 열을 지정하는 변수</p>
+</li>
+<li>
+<p>x, idx : 몇번째 줄인지 지정하는 변수</p>
+</li>
+<li>
+<p>r, rotate : 몇번 회전시킬 것인지 지정하는 변수</p>
+</li>
+<li>
+<p>Status : 회전시킬지, 회전 시킨 값을 다시 되돌릴 것인지 알려주는 변수</p>
+</li>
+<li>
+<p>cnt : 회전시킨 횟수</p>
+</li>
+</ul>
+<ol start="2">
+<li>접근방식</li>
+</ol>
+<p>먼저 원하는 형태를 가진 ans라는 리스트를 만들고 입력받은 lubic과 계속해서 비교 시킵니다.</p>
+<p>비교할 때 다른 값의 개수를 비교하고 해당 값을 diff에 담습니다.</p>
+<p>diff가 0이라면 원하는 형태이므로 계산한 cnt와 회전한 방법을 담은 tmp_rotation 값을 rotation에 복사합니다. (tmp_rotation으로 출력을 하면 종료되지 않은 재귀때문에 원하지 않는 답을 받을 수 있습니다.)</p>
+<p>diff가 존재한다면 diff를 4로 나눈후 1을 더한수를 change에 저장합니다.</p>
+<p>해당 연산을 하는 이유는 최상의 경우일때 한라인의 값만 달라서 한번만 움직여도 해결 될 수 있기 때문에 4로 나눕니다. 그리고 만약 4로 나눠지지 않는 경우도 있을 수 있기 때문에 1을 더해줍니다.</p>
+<p>그리고 현재 회전시킨 횟수와 최상의 경우일때가 현재 답보다 크다면 더이상 계산할 필요가 없기 때문에 비교하고 prediction이 더 클 경우 종료합니다.</p>
+<p>그리고 dfs를 통해 타일을 회전시킵니다. 이때 백트래킹을 사용해서 회전한 경우를 다시 되돌려 모든 경우를 탐색할 수 있도록 해줍니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> sys
+input <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>readline
+
+CONST_M <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>
+lubic <span style="color:#f92672">=</span> [list(map(int,input()<span style="color:#f92672">.</span>split())) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>)]
+ans <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>], [<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>], [<span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">12</span>], [<span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>]]
+ans_cnt <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>
+rotation <span style="color:#f92672">=</span> []
+[rotation<span style="color:#f92672">.</span>append([]) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(CONST_M)]
+[rotation[x]<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(CONST_M) <span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>)]
+tmp_rotation <span style="color:#f92672">=</span> []
+[tmp_rotation<span style="color:#f92672">.</span>append([]) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(CONST_M)]
+[tmp_rotation[x]<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(CONST_M) <span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>)]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lubic_check</span>():
+	cnt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+		<span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+			<span style="color:#66d9ef">if</span> ans[x][y] <span style="color:#f92672">!=</span> lubic[x][y]:
+				cnt <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">return</span> cnt
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rotate_lubic</span>(line, idx, rotate, status):
+	rotate_arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
+	<span style="color:#66d9ef">if</span> line <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+		<span style="color:#66d9ef">if</span> status <span style="color:#f92672">==</span> <span style="color:#66d9ef">False</span>:
+			rotate <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span> rotate
+		<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+			rotate_arr[(i <span style="color:#f92672">+</span> rotate) <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> lubic[idx][i]
+		<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+			lubic[idx][i] <span style="color:#f92672">=</span> rotate_arr[i]
+	<span style="color:#66d9ef">else</span>:
+		<span style="color:#66d9ef">if</span> status <span style="color:#f92672">==</span> <span style="color:#66d9ef">False</span>:
+			rotate <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span> rotate
+		<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+			rotate_arr[(i <span style="color:#f92672">+</span> rotate) <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> lubic[i][idx]
+		<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+			lubic[i][idx] <span style="color:#f92672">=</span> rotate_arr[i]
+				
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dfs</span>(cnt):
+	<span style="color:#66d9ef">global</span> ans_cnt
+	diff <span style="color:#f92672">=</span> lubic_check()
+	<span style="color:#66d9ef">if</span> diff <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> cnt <span style="color:#f92672">&lt;</span> ans_cnt:
+		ans_cnt <span style="color:#f92672">=</span> cnt
+		<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(cnt):
+			rotation[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> tmp_rotation[i][<span style="color:#ae81ff">0</span>]
+			rotation[i][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> tmp_rotation[i][<span style="color:#ae81ff">1</span>]
+			rotation[i][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> tmp_rotation[i][<span style="color:#ae81ff">2</span>]
+		<span style="color:#66d9ef">return</span>
+	change <span style="color:#f92672">=</span> diff <span style="color:#f92672">/</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+	prediction <span style="color:#f92672">=</span> cnt <span style="color:#f92672">+</span> change
+	<span style="color:#66d9ef">if</span> prediction <span style="color:#f92672">&gt;</span> ans_cnt:
+		<span style="color:#66d9ef">return</span>
+	<span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>):
+		<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+			<span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>):
+				tmp_rotation[cnt][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> l
+				tmp_rotation[cnt][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+				tmp_rotation[cnt][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> r
+				rotate_lubic(l, x, r, <span style="color:#66d9ef">True</span>)
+				dfs(cnt <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+				rotate_lubic(l, x, r, <span style="color:#66d9ef">False</span>)
+
+dfs(<span style="color:#ae81ff">0</span>)
+print(ans_cnt)
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(ans_cnt):
+	print(rotation[i][<span style="color:#ae81ff">0</span>], rotation[i][<span style="color:#ae81ff">1</span>], rotation[i][<span style="color:#ae81ff">2</span>])
+</code></pre></div></article>
               </div>
             </div>
           </div>
