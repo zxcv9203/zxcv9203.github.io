@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://zxcv9203.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://zxcv9203.github.io/css/syntax.css' />
+    <title>[DataStructure]Linked List - 4 - zxcv9203&#39;s blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="Double Linked List의 구현" />
+<meta name="keywords"
+  content='blog, google analytics' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://zxcv9203.github.io/post/linkedlist4/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="[DataStructure]Linked List - 4 - zxcv9203&#39;s blog" />
+<meta name="twitter:description"
+  content="Double Linked List의 구현" />
+<meta name="twitter:site" content="https://zxcv9203.github.io" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://zxcv9203.github.io">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="[DataStructure]Linked List - 4 - zxcv9203&#39;s blog">
+<meta property="og:description"
+  content="Double Linked List의 구현" />
+<meta property="og:url" content="https://zxcv9203.github.io/post/linkedlist4/" />
+<meta property="og:site_name" content="[DataStructure]Linked List - 4" />
+<meta property="og:image"
+  content="https://zxcv9203.github.io">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2021-11-25 22:42:28 &#43;0900 KST" />
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://zxcv9203.github.io">
+        <svg class="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd"
+            d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://zxcv9203.github.io">
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://zxcv9203.github.io">
+        <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+          width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+  
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://zxcv9203.github.io">
+                  <img class=" avatar-user"
+                    src="/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://zxcv9203.github.io">yongckim</a></span><span
+                    class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
+                      href="https://zxcv9203.github.io/post/linkedlist4/">[DataStructure]Linked List - 4</a></strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Thu, 25 Nov 2021 22:42:28 &#43;0900"
+                    class="no-wrap">
+                    Thu, 25 Nov 2021 22:42:28 &#43;0900</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Fri, 26 Nov 2021 02:34:57 &#43;0900"
+                    class="no-wrap">
+                    Fri, 26 Nov 2021 02:34:57 &#43;0900</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="menu" aria-label="Table of Contents" role="button">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                          1289 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5">
+                <article class="markdown-body entry-content container-lg"><h1 id="double-linked-list-구현-함수">Double Linked List 구현 함수</h1>
+<p>DoublyList* createDoublyList()</p>
+<ul>
+<li>Double Linked list를 생성하는 함수</li>
+</ul>
+<p>void deleteDoublyList(DoublyList* pList)</p>
+<ul>
+<li>Double Linked list를 삭제하는 함수(메모리 할당 해제)</li>
+</ul>
+<p>int addDLElement(DoublyList* pList, int position, DoublyListNode element)</p>
+<ul>
+<li>Double Linked list를 position 위치에 elment의 내용으로 추가합니다.</li>
+</ul>
+<p>int removeDLElement(DoublyList* pList, int position);</p>
+<ul>
+<li>Double Linked list의 포지션 위치의 값을 삭제합니다.</li>
+</ul>
+<p>void clearDoublyList(DoublyList* pList);</p>
+<ul>
+<li>Double linked list의 data를 초기화합니다.</li>
+</ul>
+<p>int getDoublyListLength(DoublyList* pList);</p>
+<ul>
+<li>Double Linked list의 현재 길이를 가져옵니다.</li>
+</ul>
+<p>DoublyListNode* getDLElement(DoublyList* pList, int position);</p>
+<ul>
+<li>Double Linked List의 position 위치의 노드를 반환합니다.</li>
+</ul>
+<p>void displayDoublyList(DoublyList* pList);</p>
+<ul>
+<li>Display Double List의 값들을 출력해줍니다.</li>
+</ul>
+<h2 id="doublylist-createdoublylist">DoublyList* createDoublyList()</h2>
+<p>Double Linked list를 생성하는 함수입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">DoublyList<span style="color:#f92672">*</span> <span style="color:#a6e22e">createDoublyList</span>()
+{
+	DoublyList <span style="color:#f92672">*</span>dl;
+
+	dl <span style="color:#f92672">=</span> (DoublyList <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(DoublyList));
+	<span style="color:#66d9ef">if</span> (dl <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (NULL);
+	dl<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	dl<span style="color:#f92672">-&gt;</span>headerNode.data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	dl<span style="color:#f92672">-&gt;</span>headerNode.pLLink <span style="color:#f92672">=</span> NULL;
+	dl<span style="color:#f92672">-&gt;</span>headerNode.pRLink <span style="color:#f92672">=</span> NULL;
+	<span style="color:#66d9ef">return</span> (dl);
+}
+</code></pre></div><h3 id="함수-흐름">함수 흐름</h3>
+<ol>
+<li>double linked list를 동적할당합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">dl <span style="color:#f92672">=</span> (DoublyList <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(DoublyList));
+<span style="color:#66d9ef">if</span> (dl <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (NULL);
+</code></pre></div></li>
+<li>double linked list의 현재 개수와 노드의 값들을 초기화 한 후 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">dl<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+dl<span style="color:#f92672">-&gt;</span>headerNode.data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+dl<span style="color:#f92672">-&gt;</span>headerNode.pLLink <span style="color:#f92672">=</span> NULL;
+dl<span style="color:#f92672">-&gt;</span>headerNode.pRLink <span style="color:#f92672">=</span> NULL;
+<span style="color:#66d9ef">return</span> (dl);
+
+</code></pre></div></li>
+</ol>
+<h2 id="void-deletedoublylistdoublylist-plist">void deleteDoublyList(DoublyList* pList)</h2>
+<p>Double Linked list를 삭제하는 함수(메모리 할당 해제)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	DoublyListNode <span style="color:#f92672">*</span>node;
+	DoublyListNode <span style="color:#f92672">*</span>release;
+
+	<span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> ;
+	node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink;
+	<span style="color:#66d9ef">while</span> (node <span style="color:#f92672">&amp;&amp;</span> node <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode) {
+		release <span style="color:#f92672">=</span> node;
+		node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pRLink;
+		release<span style="color:#f92672">-&gt;</span>pLLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		release<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		release<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		free(release);
+	}
+	pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	pList<span style="color:#f92672">-&gt;</span>headerNode.pLLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	free(pList);
+</code></pre></div><h3 id="함수-흐름-1">함수 흐름</h3>
+<ol>
+<li>매개변수로 전달받은 Double Linked List가 NULL일 경우 함수를 종료합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> ;
+</code></pre></div></li>
+<li>0번째 노드부터 메모리 할당을 해제 하기 위해 node를 0번째 노드를 가르키도록 합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink;
+</code></pre></div></li>
+<li>node에 연결되어 있는 함수들을 해제합니다. (node != &amp;pList-&gt;headerNode의 이유는 맨마지막 노드는 header node를 가르키고 있으므로 node가 headerNode를 가르키게 된다면 모든 노드를 다 탐색한 상황이 됩니다.)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">while</span> (node <span style="color:#f92672">&amp;&amp;</span> node <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode) {
+release <span style="color:#f92672">=</span> node;
+node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pRLink;
+release<span style="color:#f92672">-&gt;</span>pLLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+release<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+release<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+free(release);
+}
+</code></pre></div></li>
+<li>마지막으로 pList의 동적할당을 해제합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+pList<span style="color:#f92672">-&gt;</span>headerNode.pLLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+free(pList);
+
+</code></pre></div></li>
+</ol>
+<h2 id="int-adddlelementdoublylist-plist-int-position-doublylistnode-element">int addDLElement(DoublyList* pList, int position, DoublyListNode element)</h2>
+<p>Double Linked list의 노드를 position 위치에 element의 내용으로 추가하는 함수입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">addDLElement</span>(DoublyList<span style="color:#f92672">*</span> pList, <span style="color:#66d9ef">int</span> position, DoublyListNode element)
+{
+	DoublyListNode <span style="color:#f92672">*</span>node;
+	DoublyListNode <span style="color:#f92672">*</span>prev;
+	<span style="color:#66d9ef">int</span>				i;
+
+	i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (FALSE);
+	<span style="color:#66d9ef">if</span> (position <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">&lt;</span> position)
+		<span style="color:#66d9ef">return</span> (FALSE);
+	node <span style="color:#f92672">=</span> (DoublyListNode <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(DoublyListNode));
+	<span style="color:#66d9ef">if</span> (node <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (FALSE);
+	node<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> element.data;
+	prev <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode;
+	<span style="color:#66d9ef">while</span> (i<span style="color:#f92672">++</span> <span style="color:#f92672">&lt;</span> position <span style="color:#f92672">&amp;&amp;</span> prev<span style="color:#f92672">-&gt;</span>pRLink)
+		prev <span style="color:#f92672">=</span> prev<span style="color:#f92672">-&gt;</span>pRLink;
+	node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> prev<span style="color:#f92672">-&gt;</span>pRLink;
+	node<span style="color:#f92672">-&gt;</span>pLLink <span style="color:#f92672">=</span> prev;
+	prev<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> node;
+	<span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">==</span> NULL <span style="color:#f92672">||</span> node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">==</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode)
+	{
+		node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode;
+		pList<span style="color:#f92672">-&gt;</span>headerNode.pLLink <span style="color:#f92672">=</span> node;
+	}
+	pList<span style="color:#f92672">-&gt;</span>currentElementCount<span style="color:#f92672">++</span>;
+	<span style="color:#66d9ef">return</span> (TRUE);
+}
+</code></pre></div><h3 id="함수-흐름-2">함수 흐름</h3>
+<ol>
+<li>매개변수로 받은 Double Linked List가 NULL 이라면 실패했다는 것을 알리기 위해 FALSE(0)을 반환하고 종료합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (FALSE);
+</code></pre></div></li>
+<li>매개변수로 받은 node의 위치를 가리키는 position 변수가 음수거나 현재 노드의 개수보다 크다면 잘 못된 위치 값이므로 FALSE를 반환하고 종료합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (position <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">&lt;</span> position)
+	<span style="color:#66d9ef">return</span> (FALSE);
+</code></pre></div></li>
+<li>추가할 노드를 동적할당하고 실패할 경우 FALSE를 반환하도록 합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">node <span style="color:#f92672">=</span> (DoublyListNode <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(DoublyListNode));
+<span style="color:#66d9ef">if</span> (node <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (FALSE);
+</code></pre></div></li>
+<li>추가할 노드에 매개변수로 받은 element의 데이터 값을 넣습니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">node<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> element.data;
+</code></pre></div></li>
+<li>이전 노드까지 탐색합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">prev <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode;
+<span style="color:#66d9ef">while</span> (i<span style="color:#f92672">++</span> <span style="color:#f92672">&lt;</span> position <span style="color:#f92672">&amp;&amp;</span> prev<span style="color:#f92672">-&gt;</span>pRLink)
+	prev <span style="color:#f92672">=</span> prev<span style="color:#f92672">-&gt;</span>pRLink;
+</code></pre></div></li>
+<li>node의 다음 주소가 node의 이전주소가 다음으로 가르키는 곳을 가르키게 합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> prev<span style="color:#f92672">-&gt;</span>pRLink;
+</code></pre></div></li>
+<li>node의 이전 주소로 prev(node 이전 위치)를 가르키게 합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">node<span style="color:#f92672">-&gt;</span>pLLink <span style="color:#f92672">=</span> prev;
+</code></pre></div></li>
+<li>node의 이전 주소를 가리키는 prev의 다음 주소를 node를 가르키게 합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">prev<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> node;
+</code></pre></div></li>
+<li>만약 노드의 다음주소로 가르키는 주소가 NULL이거나 headerNode라면 마지막 노드이기 때문에 node의 다음주소를 headerNode로 하고 헤더노드의 이전(마지막 노드) 주소를 마지막 노드의 주소로 합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">==</span> NULL <span style="color:#f92672">||</span> node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">==</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode)
+{
+	node<span style="color:#f92672">-&gt;</span>pRLink <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode;
+	pList<span style="color:#f92672">-&gt;</span>headerNode.pLLink <span style="color:#f92672">=</span> node;
+}
+</code></pre></div></li>
+<li>노드의 개수를 1 증가시키고 종료합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pList<span style="color:#f92672">-&gt;</span>currentElementCount<span style="color:#f92672">++</span>;
+<span style="color:#66d9ef">return</span> (TRUE);
+</code></pre></div></li>
+</ol>
+<h2 id="int-removedlelementdoublylist-plist-int-position">int removeDLElement(DoublyList* pList, int position)</h2>
+<h3 id="함수-흐름-3">함수 흐름</h3>
+<h2 id="void-cleardoublylistdoublylist-plist">void clearDoublyList(DoublyList* pList)</h2>
+<h3 id="함수흐름">함수흐름</h3>
+<h2 id="int-getdoublylistlengthdoublylist-plist">int getDoublyListLength(DoublyList* pList)</h2>
+<h3 id="함수-흐름-4">함수 흐름</h3>
+<h2 id="doublylistnode-getdlelementdoublylist-plist-int-position">DoublyListNode* getDLElement(DoublyList* pList, int position)</h2>
+<h3 id="함수-흐름-5">함수 흐름</h3>
+<h2 id="void-displaydoublylistdoublylist-plist">void displayDoublyList(DoublyList* pList)</h2>
+<h3 id="함수-흐름-6">함수 흐름</h3>
+</article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+ 
+ 
+ 
+ window.onload = function () {
+   const header = document.getElementById('post-header');
+   const headerHeight = header.offsetHeight;
+   
+   document.documentElement.style.scrollPaddingTop = headerHeight + 10 + "px";
+ }
+
+ const tocToggleButton = document.getElementById("toc-toggle");
+
+ const tippyInstance = tippy('#toc-toggle', {
+  trigger: 'click',
+  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\n  \u003cul\u003e\n    \u003cli\u003e\u003ca href=\u0022#doublylist-createdoublylist\u0022\u003eDoublyList* createDoublyList()\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수-흐름\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#void-deletedoublylistdoublylist-plist\u0022\u003evoid deleteDoublyList(DoublyList* pList)\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수-흐름-1\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#int-adddlelementdoublylist-plist-int-position-doublylistnode-element\u0022\u003eint addDLElement(DoublyList* pList, int position, DoublyListNode element)\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수-흐름-2\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#int-removedlelementdoublylist-plist-int-position\u0022\u003eint removeDLElement(DoublyList* pList, int position)\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수-흐름-3\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#void-cleardoublylistdoublylist-plist\u0022\u003evoid clearDoublyList(DoublyList* pList)\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수흐름\u0022\u003e함수흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#int-getdoublylistlengthdoublylist-plist\u0022\u003eint getDoublyListLength(DoublyList* pList)\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수-흐름-4\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#doublylistnode-getdlelementdoublylist-plist-int-position\u0022\u003eDoublyListNode* getDLElement(DoublyList* pList, int position)\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수-흐름-5\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n    \u003cli\u003e\u003ca href=\u0022#void-displaydoublylistdoublylist-plist\u0022\u003evoid displayDoublyList(DoublyList* pList)\u003c\/a\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003ca href=\u0022#함수-흐름-6\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n  \u003c\/ul\u003e\n\u003c\/nav\u003e</div>',
+  allowHTML: true,
+  placement: 'bottom-start',
+  interactive: true,
+  arrow: false,
+  maxWidth: "none",
+  onHide: function () { tocToggleButton.classList.remove("hover"); },
+  onShow: function () { tocToggleButton.classList.add("hover"); },
+  onShown: function () {
+    selectTableOfContentsOption();
+
+    if (window.hasSetupTableOfContentsListeners) {
+      return;
+    }
+
+    const tableOfContents = document.getElementById("table-of-contents");
+    tableOfContents.addEventListener('click', function () {
+      
+      tippyInstance[0].hide();
+    });
+
+    window.hasSetupTableOfContentsListeners = true;
+  }
+ });
+
+ function selectTableOfContentsOption () {
+   const optionSelectedClass = 'table-of-contents-option-selected';
+
+   const tableOfContentsOptions = document.querySelectorAll("#table-of-contents > nav > ul li");
+
+   for (const option of tableOfContentsOptions) {
+     
+
+     const [child] = option.children;
+     if (child.tagName.toLowerCase() !== 'a') {
+       continue;
+     }
+
+     if (window.location.href === child.href) {
+       child.classList.add(optionSelectedClass);
+     } else {
+       child.classList.remove(optionSelectedClass);
+     }
+   }
+ }
+
+ window.onhashchange = selectTableOfContentsOption;
+</script>
+
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://zxcv9203.github.io">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://zxcv9203.github.io/js/github-style.js"></script>
+
+
+
+</html>
