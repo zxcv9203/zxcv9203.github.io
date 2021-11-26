@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Fri, 26 Nov 2021 19:23:27 &#43;0900"
+                  Modified <relative-time datetime="Fri, 26 Nov 2021 21:13:59 &#43;0900"
                     class="no-wrap">
-                    Fri, 26 Nov 2021 19:23:27 &#43;0900</relative-time>
+                    Fri, 26 Nov 2021 21:13:59 &#43;0900</relative-time>
                   
                 </div>
               </div>
@@ -178,7 +178,7 @@
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          0 Words
+                          1269 Words
                     
 
                   </div>
@@ -190,7 +190,207 @@
 
 
               <div class="Box-body px-5 pb-5">
-                <article class="markdown-body entry-content container-lg"></article>
+                <article class="markdown-body entry-content container-lg"><h1 id="다항식-계산">다항식 계산</h1>
+<p>다항식을 계산할 때 Linked List를 이용하면 간편하게 계산할 수 있습니다.</p>
+<p>다항식은 같은 차수의 값끼리 계산을 해야하고 다른 차수는 그대로 유지해야 합니다.</p>
+<p>예를 들어 다음과 같은 두개의 다항식을 덧셈을 하면</p>
+<pre tabindex="0"><code>차수 : 3 계수 : 2 , 차수 : 1 계수 : 7
+차수 : 3 계수 : 5 , 차수 : 2 계수 : 1
+</code></pre><p>다음과 같은 결과 값을 얻어야 합니다.</p>
+<pre tabindex="0"><code>차수 : 3 계수 : 7 , 차수 : 2 계수 : 1 , 차수 : 1 계수 : 7
+</code></pre><h1 id="다항식-계산-구현-아이디어">다항식 계산 구현 아이디어</h1>
+<p>먼저, 다항식 계산을 할 다항식을 링크드 리스트로 만듭니다.</p>
+<p>그 다음 두개의 링크드 리스트를 매개변수로 받아 이 둘을 덧셈한 링크드리스트를 반환하도록 합니다.</p>
+<p>매개변수로 받은 링크드 리스트는 각각의 iterator를 가지고 링크드 리스트의 노드를 끝까지 탐색하며, 각각의 iterator들이 가리키고 있는 값을 연산을 합니다.</p>
+<p>링크드리스트는 node의 degree 값이 같은 경우에만 덧셈 연산을 하도록 하게 합니다.</p>
+<p>degree 값이 다를 경우 큰 값을 먼저 반환할 리스트의 노드로 추가합니다.</p>
+<p>값을 사용한 노드들은 계속해서 다음 노드로 이동하며, 한쪽이 먼저 끝났을 경우 남아있는 값들을 그대로 뒤에 이어붙입니다.</p>
+<h1 id="다항식-계산-링크드-리스트의-구조">다항식 계산 링크드 리스트의 구조</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-h" data-lang="h"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> ListNodeType
+{
+	<span style="color:#66d9ef">float</span> coef; <span style="color:#75715e">// 계수
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> degree; <span style="color:#75715e">//차수
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">struct</span> ListNodeType<span style="color:#f92672">*</span> pLink;	<span style="color:#75715e">// next 포인터
+</span><span style="color:#75715e"></span>} ListNode;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> LinkedListType
+{
+	<span style="color:#66d9ef">int</span> currentElementCount;	<span style="color:#75715e">// 현재 Element의 개수
+</span><span style="color:#75715e"></span>	ListNode headerNode;		<span style="color:#75715e">// Element
+</span><span style="color:#75715e"></span>} LinkedList;
+</code></pre></div><h1 id="다항식-계산-구현-in-c">다항식 계산 구현 in c</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span>	<span style="color:#a6e22e">handle_remaining_term</span>(LinkedList <span style="color:#f92672">*</span>poly, ListNode <span style="color:#f92672">*</span>node, <span style="color:#66d9ef">int</span> index)
+{
+	<span style="color:#66d9ef">int</span>		stat;
+
+	<span style="color:#66d9ef">while</span> (node)
+	{
+		stat <span style="color:#f92672">=</span> addLLElement(poly, index, <span style="color:#f92672">*</span>node);
+		<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+		{
+			deleteLinkedList(poly);
+			<span style="color:#66d9ef">return</span> (FALSE);
+		}
+		index<span style="color:#f92672">++</span>;
+		node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pLink;
+	}
+	<span style="color:#66d9ef">return</span> (TRUE);
+} 
+
+LinkedList	<span style="color:#f92672">*</span><span style="color:#a6e22e">addPoly</span>(LinkedList <span style="color:#f92672">*</span>lsA, LinkedList <span style="color:#f92672">*</span>lsB)
+{
+	LinkedList	<span style="color:#f92672">*</span>poly; <span style="color:#75715e">// 다항식 계산 결과가 담기는 링크드 리스트
+</span><span style="color:#75715e"></span>	ListNode	<span style="color:#f92672">*</span>IterA; <span style="color:#75715e">// lsA의 노드를 가리키는 포인터
+</span><span style="color:#75715e"></span>	ListNode	<span style="color:#f92672">*</span>IterB; <span style="color:#75715e">// lsB의 노드를 가리키는 포인터
+</span><span style="color:#75715e"></span>	ListNode	calc; <span style="color:#75715e">// degree가 같을 경우 계산 결과가 들어가는 node
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span>			stat; <span style="color:#75715e">// 반환 값 있는 함수를 호출했을 때 해당 함수의 결과 값을 받아옵니다.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span>			i; <span style="color:#75715e">// 인덱스 변수
+</span><span style="color:#75715e"></span>	
+	i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">if</span> (lsA <span style="color:#f92672">==</span> NULL <span style="color:#f92672">&amp;&amp;</span> lsB <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (NULL);
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (lsA <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (copyLinkedList(lsB));
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (lsB <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (copyLinkedList(lsA));
+	poly <span style="color:#f92672">=</span> createLinkedList();
+	<span style="color:#66d9ef">if</span> (poly <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (NULL);
+	IterA <span style="color:#f92672">=</span> lsA<span style="color:#f92672">-&gt;</span>headerNode.pLink;
+	IterB <span style="color:#f92672">=</span> lsB<span style="color:#f92672">-&gt;</span>headerNode.pLink;
+	<span style="color:#66d9ef">while</span>(IterA <span style="color:#f92672">&amp;&amp;</span> IterB)
+	{
+		<span style="color:#66d9ef">if</span> (IterA<span style="color:#f92672">-&gt;</span>degree <span style="color:#f92672">&gt;</span> IterB<span style="color:#f92672">-&gt;</span>degree)
+		{
+			stat <span style="color:#f92672">=</span> addLLElement(poly, i, <span style="color:#f92672">*</span>IterA);
+			<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+			{
+				deleteLinkedList(poly);
+				<span style="color:#66d9ef">return</span> (NULL);
+			}
+			IterA <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>pLink;
+		}
+		<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (IterA<span style="color:#f92672">-&gt;</span>degree <span style="color:#f92672">&lt;</span> IterB<span style="color:#f92672">-&gt;</span>degree)
+		{
+			stat <span style="color:#f92672">=</span> addLLElement(poly, i, <span style="color:#f92672">*</span>IterB);
+			<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+			{
+				deleteLinkedList(poly);
+				<span style="color:#66d9ef">return</span> (NULL);
+			}
+			IterB <span style="color:#f92672">=</span> IterB<span style="color:#f92672">-&gt;</span>pLink;
+		}
+		<span style="color:#66d9ef">else</span> <span style="color:#75715e">// IterA-&gt;degree == IterB-&gt;degree 
+</span><span style="color:#75715e"></span>		{
+			calc.coef <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>coef <span style="color:#f92672">+</span> IterB<span style="color:#f92672">-&gt;</span>coef;
+			calc.degree <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>degree;
+			stat <span style="color:#f92672">=</span> addLLElement(poly, i, calc);
+			<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+			{
+				deleteLinkedList(poly);
+				<span style="color:#66d9ef">return</span> (NULL);
+			}
+			IterA <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>pLink;
+			IterB <span style="color:#f92672">=</span> IterB<span style="color:#f92672">-&gt;</span>pLink;
+		}
+		i<span style="color:#f92672">++</span>;
+	}
+	stat <span style="color:#f92672">=</span> handle_remaining_term(poly, IterA, i);
+	<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+		<span style="color:#66d9ef">return</span> (NULL);
+	stat <span style="color:#f92672">=</span> handle_remaining_term(poly, IterB, i);
+	<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+		<span style="color:#66d9ef">return</span> (NULL);
+	<span style="color:#66d9ef">return</span> (poly);
+}
+</code></pre></div><h2 id="함수-흐름">함수 흐름</h2>
+<ol>
+<li>매개변수로 받은 Linked List가 NULL인지 아닌지를 판단합니다. 한쪽만 NULL이라면 NULL이 아닌 Linked List를 깊은 복사를 해서 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (lsA <span style="color:#f92672">==</span> NULL <span style="color:#f92672">&amp;&amp;</span> lsB <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (NULL);
+<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (lsA <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (copyLinkedList(lsB));
+<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (lsB <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (copyLinkedList(lsA));
+</code></pre></div></li>
+<li>다항식 계산한 결과를 저장하는 링크드 리스트를 동적할당합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">poly <span style="color:#f92672">=</span> createLinkedList();
+<span style="color:#66d9ef">if</span> (poly <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (NULL);
+</code></pre></div></li>
+<li>매개변수로 전달받은 리스트의 iterator를 만듭니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">IterA <span style="color:#f92672">=</span> lsA<span style="color:#f92672">-&gt;</span>headerNode.pLink;
+IterB <span style="color:#f92672">=</span> lsB<span style="color:#f92672">-&gt;</span>headerNode.pLink;
+</code></pre></div></li>
+<li>degree의 크기를 비교해서 같은 경우 계수의 값을 더해서 노드를 추가하고 다르다면 더 큰쪽의 계수의 값을 poly에 추가합니다. 값을 사용한 노드는 다음 노드로 이동시킵니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">while</span>(IterA <span style="color:#f92672">&amp;&amp;</span> IterB)
+{
+	<span style="color:#66d9ef">if</span> (IterA<span style="color:#f92672">-&gt;</span>degree <span style="color:#f92672">&gt;</span> IterB<span style="color:#f92672">-&gt;</span>degree)
+	{
+		stat <span style="color:#f92672">=</span> addLLElement(poly, i, <span style="color:#f92672">*</span>IterA);
+		<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+		{
+			deleteLinkedList(poly);
+			<span style="color:#66d9ef">return</span> (NULL);
+		}
+		IterA <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>pLink;
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (IterA<span style="color:#f92672">-&gt;</span>degree <span style="color:#f92672">&lt;</span> IterB<span style="color:#f92672">-&gt;</span>degree)
+	{
+		stat <span style="color:#f92672">=</span> addLLElement(poly, i, <span style="color:#f92672">*</span>IterB);
+		<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+		{
+			deleteLinkedList(poly);
+			<span style="color:#66d9ef">return</span> (NULL);
+		}
+		IterB <span style="color:#f92672">=</span> IterB<span style="color:#f92672">-&gt;</span>pLink;
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#75715e">// IterA-&gt;degree == IterB-&gt;degree 
+</span><span style="color:#75715e"></span>	{
+		calc.coef <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>coef <span style="color:#f92672">+</span> IterB<span style="color:#f92672">-&gt;</span>coef;
+		calc.degree <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>degree;
+		stat <span style="color:#f92672">=</span> addLLElement(poly, i, calc);
+		<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+		{
+			deleteLinkedList(poly);
+			<span style="color:#66d9ef">return</span> (NULL);
+		}
+		IterA <span style="color:#f92672">=</span> IterA<span style="color:#f92672">-&gt;</span>pLink;
+		IterB <span style="color:#f92672">=</span> IterB<span style="color:#f92672">-&gt;</span>pLink;
+	}
+	i<span style="color:#f92672">++</span>;
+}
+</code></pre></div></li>
+<li>만약 매개변수로 받은 리스트가 끝에 도달하지 않았으면 해당 내용을 뒤에 그대로 이어 붙입니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">stat <span style="color:#f92672">=</span> handle_remaining_term(poly, IterA, i);
+<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+	<span style="color:#66d9ef">return</span> (NULL);
+stat <span style="color:#f92672">=</span> handle_remaining_term(poly, IterB, i);
+<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+	<span style="color:#66d9ef">return</span> (NULL);
+</code></pre></div>``
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span>	<span style="color:#a6e22e">handle_remaining_term</span>(LinkedList <span style="color:#f92672">*</span>poly, ListNode <span style="color:#f92672">*</span>node, <span style="color:#66d9ef">int</span> index)
+{
+	<span style="color:#66d9ef">int</span>		stat;
+
+	<span style="color:#66d9ef">while</span> (node)
+	{
+		stat <span style="color:#f92672">=</span> addLLElement(poly, index, <span style="color:#f92672">*</span>node);
+		<span style="color:#66d9ef">if</span> (stat <span style="color:#f92672">==</span> FALSE)
+		{
+			deleteLinkedList(poly);
+			<span style="color:#66d9ef">return</span> (FALSE);
+		}
+		index<span style="color:#f92672">++</span>;
+		node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pLink;
+	}
+	<span style="color:#66d9ef">return</span> (TRUE);
+} 
+</code></pre></div></li>
+<li>계산한 링크드 리스트를 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">return</span> (poly);</code></pre></div></li>
+</ol>
+</article>
               </div>
             </div>
           </div>
@@ -214,7 +414,7 @@
 
  const tippyInstance = tippy('#toc-toggle', {
   trigger: 'click',
-  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\u003c\/nav\u003e</div>',
+  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\n  \u003cul\u003e\n    \u003cli\u003e\u003ca href=\u0022#함수-흐름\u0022\u003e함수 흐름\u003c\/a\u003e\u003c\/li\u003e\n  \u003c\/ul\u003e\n\u003c\/nav\u003e</div>',
   allowHTML: true,
   placement: 'bottom-start',
   interactive: true,
