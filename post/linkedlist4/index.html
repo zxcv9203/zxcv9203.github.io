@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Fri, 26 Nov 2021 14:18:44 &#43;0900"
+                  Modified <relative-time datetime="Fri, 26 Nov 2021 18:43:21 &#43;0900"
                     class="no-wrap">
-                    Fri, 26 Nov 2021 14:18:44 &#43;0900</relative-time>
+                    Fri, 26 Nov 2021 18:43:21 &#43;0900</relative-time>
                   
                 </div>
               </div>
@@ -178,7 +178,7 @@
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          1918 Words
+                          2472 Words
                     
 
                   </div>
@@ -480,11 +480,103 @@ pList<span style="color:#f92672">-&gt;</span>currentElementCount<span style="col
 </code></pre></div></li>
 </ol>
 <h2 id="int-getdoublylistlengthdoublylist-plist">int getDoublyListLength(DoublyList* pList)</h2>
-<h3 id="함수-흐름-4">함수 흐름</h3>
+<p>현재 노드의 개수를 반환하는 함수입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getDoublyListLength</span>(DoublyList<span style="color:#f92672">*</span> pList)
+{
+	<span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (FALSE);
+	<span style="color:#66d9ef">return</span> (pList<span style="color:#f92672">-&gt;</span>currentElementCount);
+}
+</code></pre></div><h3 id="함수-흐름-4">함수 흐름</h3>
+<ol>
+<li>전달받은 Double Linked List가 NULL이라면 FALSE(0)을 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (FALSE);
+</code></pre></div></li>
+<li>현재 노드의 개수를 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">return</span> (pList<span style="color:#f92672">-&gt;</span>currentElementCount);
+
+</code></pre></div></li>
+</ol>
 <h2 id="doublylistnode-getdlelementdoublylist-plist-int-position">DoublyListNode* getDLElement(DoublyList* pList, int position)</h2>
-<h3 id="함수-흐름-5">함수 흐름</h3>
+<p>Double Linked List의 position 위치의 노드를 반환합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	DoublyListNode <span style="color:#f92672">*</span>node;
+	
+	<span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> (FALSE);
+	<span style="color:#66d9ef">if</span> (position <span style="color:#f92672">&gt;=</span> pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">||</span> position <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+		<span style="color:#66d9ef">return</span> (FALSE);
+	<span style="color:#66d9ef">if</span> (pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">&lt;=</span> position)
+	{
+		node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pLLink;
+		<span style="color:#66d9ef">while</span> (position<span style="color:#f92672">--</span>)
+			node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pLLink;
+	}
+	<span style="color:#66d9ef">else</span>
+	{
+		node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink;
+		<span style="color:#66d9ef">while</span> (position<span style="color:#f92672">--</span>)
+			node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pRLink;
+	}
+	<span style="color:#66d9ef">return</span> (node);
+</code></pre></div><h3 id="함수-흐름-5">함수 흐름</h3>
+<ol>
+<li>매개변수로 받은 Double Linked List가 NULL이라면 FALSE(0)를 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> (FALSE);
+</code></pre></div></li>
+<li>가져올 노드의 위치가 현재 노드의 개수를 넘어가거나 음수라면 FALSE를 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (position <span style="color:#f92672">&gt;=</span> pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">||</span> position <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+	<span style="color:#66d9ef">return</span> (FALSE);
+</code></pre></div></li>
+<li>가져올 위치가 현재 노드의 개수 / 2보다 크면 뒤에서 탐색하는게 더 빠르므로 뒤에서 부터 탐색합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (pList<span style="color:#f92672">-&gt;</span>currentElementCount <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">&lt;=</span> position)
+{
+	node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pLLink;
+	<span style="color:#66d9ef">while</span> (position<span style="color:#f92672">--</span>)
+		node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pLLink;
+}
+</code></pre></div></li>
+<li>가져올 위치의 노드가 현재 노드의 개수 / 2 보다 작다면 앞에서 부터 탐색하는 게 더 빠르므로 앞에서 부터 탐색합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">else</span>
+{
+	node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink;
+	<span style="color:#66d9ef">while</span> (position<span style="color:#f92672">--</span>)
+		node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pRLink;
+}
+</code></pre></div></li>
+<li>해당 위치의 노드를 반환합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">return</span> (node);
+</code></pre></div></li>
+</ol>
 <h2 id="void-displaydoublylistdoublylist-plist">void displayDoublyList(DoublyList* pList)</h2>
-<h3 id="함수-흐름-6">함수 흐름</h3>
+<p>Double List의 노드들을 출력해줍니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">	DoublyListNode <span style="color:#f92672">*</span>node;
+
+	<span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+		<span style="color:#66d9ef">return</span> ;
+	node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink;
+	<span style="color:#66d9ef">while</span> (node <span style="color:#f92672">&amp;&amp;</span> node <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode)
+	{
+		printf(<span style="color:#e6db74">&#34;prev : %p, node : %p, node-&gt;data : %d, next : %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, 
+				node<span style="color:#f92672">-&gt;</span>pLLink, node, node<span style="color:#f92672">-&gt;</span>data, node<span style="color:#f92672">-&gt;</span>pRLink);
+		node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pRLink;
+	}
+</code></pre></div><h3 id="함수-흐름-6">함수 흐름</h3>
+<ol>
+<li>매개변수로 전달받은 Double Linked List가 NULL이라면 함수를 종료합니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (pList <span style="color:#f92672">==</span> NULL)
+	<span style="color:#66d9ef">return</span> ;
+</code></pre></div></li>
+<li>노드의 이전 주소, 노드의 현재 주소, 노드의 현재 주소의 data, 노드의 다음주소에 대한 내용을 노드가 끝날때까지 출력해줍니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">node <span style="color:#f92672">=</span> pList<span style="color:#f92672">-&gt;</span>headerNode.pRLink;
+<span style="color:#66d9ef">while</span> (node <span style="color:#f92672">&amp;&amp;</span> node <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>pList<span style="color:#f92672">-&gt;</span>headerNode)
+{
+	printf(<span style="color:#e6db74">&#34;prev : %p, node : %p, node-&gt;data : %d, next : %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, 
+			node<span style="color:#f92672">-&gt;</span>pLLink, node, node<span style="color:#f92672">-&gt;</span>data, node<span style="color:#f92672">-&gt;</span>pRLink);
+	node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>pRLink;
+}</code></pre></div></li>
+</ol>
 </article>
               </div>
             </div>
